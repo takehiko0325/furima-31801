@@ -29,22 +29,22 @@
 | category_id              | integer   | null: false      |
 | status_id                | integer   | null: false      |
 | fee_id                   | integer   | null: false      |
-| delivery_source region_id| integer   | null: false      |
-| preparetion_days_id      | integer   | null: false      |
-| user_id                  | references|foreign_key: true |
+| delivery_source_region_id| integer   | null: false      |
+| preparetion_day_id       | integer   | null: false      |
+| user                     | references|foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :comments
-
+has_one : users_items
 ## comments テーブル
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
 | text      | text       | null: false                    |
 | user      | references | foreign_key: true              |
-| items     | references | foreign_key: true              |
+| item      | references | foreign_key: true              |
 
 ### Association
 - belongs_to :user
@@ -67,15 +67,15 @@
 
 | Column                 | Type       | Options           |
 | ---------------------- | ---------  | --------------    |
-| post_number_id         | string     | null: false       |
+| post_number            | string     | null: false       |
 | prefecture_id          | integer    | null: false       |
-| municipality           | integer    | null: false       |
-| address                | integer    | null: false       |
+| municipality           | string     | null: false       |
+| address                | string     | null: false       |
 | building_name          | string     |                   |
 | phone_number           | string     | null: false       |  
-| users_items_id         | references | foreign_key: true | 
+| users_item             | references | foreign_key: true | 
 ### Association
 
-- belongs_to :item
-- belongs_to :users_items
+
+- belongs_to :users_item
 
