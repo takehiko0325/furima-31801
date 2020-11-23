@@ -22,16 +22,16 @@
 
 ## items テーブル
 
-| Column                   | Type   | Options     |
-| ----------------------   | ------ | ----------- |
-| items_name               | string | null: false |
-| items_explanation        | text   | null: false |
-| items_category_id        | integer| null: false |
-| items_status_id          | integer| null: false |
-| delivery fee_id          | integer| null: false |
-| delivery source region_id| integer| null: false |
-| preparetion_days_id      | integer| null: false |
-| user_id                  | integer| null: false |
+| Column                   | Type      | Options          |
+| ----------------------   | ------    | --------------   |
+| name                     | string    | null: false      |
+| explanation              | text      | null: false      |
+| category_id              | integer   | null: false      |
+| status_id                | integer   | null: false      |
+| fee_id                   | integer   | null: false      |
+| delivery_source region_id| integer   | null: false      |
+| preparetion_days_id      | integer   | null: false      |
+| user_id                  | references|foreign_key: true |
 
 ### Association
 
@@ -43,8 +43,8 @@
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
 | text      | text       | null: false                    |
-| user_id   | references |                                |
-| items_id  | references |                                |
+| user      | references | foreign_key: true              |
+| items     | references | foreign_key: true              |
 
 ### Association
 - belongs_to :user
@@ -66,14 +66,13 @@
 ## shipping_address テーブル
 
 | Column                 | Type       | Options           |
-| ---------------------- | ------     | -----------       |
-| post_number            | string     |                   |
-| prefectures_id         | integer    | foreign_key: true |
-| municipality           | string     | foreign_key: true |
-| address                | string     | foreign_key: true |
+| ---------------------- | ---------  | --------------    |
+| post_number_id         | string     | null: false       |
+| prefecture_id          | integer    | null: false       |
+| municipality           | integer    | null: false       |
+| address                | integer    | null: false       |
 | building_name          | string     |                   |
-| phone_number           | string     |                   |  
-| shipping_address_id    | integer    | null: false       |
+| phone_number           | string     | null: false       |  
 | users_items_id         | references | foreign_key: true | 
 ### Association
 
