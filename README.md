@@ -37,7 +37,7 @@
 
 - belongs_to :user
 - has_many :comments
-has_one : users_items
+has_one : users_item
 ## comments テーブル
 
 | Column    | Type       | Options                        |
