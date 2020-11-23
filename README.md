@@ -1,24 +1,74 @@
 # README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column          | Type   | Options     |
+| --------------- | ------ | ----------- |
+| name            | string | null: false |
+| email           | string | null: false |
+| password        | string | null: false |
+| first_name      | string | null: false |
+| family_name     | string | null: false |
+| first_name(カナ) | string | null: false |
+| family_name(カナ)| string | null: false |
+| birthday        | integer| null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :comments
 
-* Configuration
 
-* Database creation
+## items テーブル
 
-* Database initialization
+| Column                 | Type   | Options     |
+| ---------------------- | ------ | ----------- |
+| image                  | text   | null: false |
+| items_name             | string | null: false |
+| items_explanation      | string | null: false |
+| items_category         | string | null: false |
+| items_status           | string | null: false |
+| delivery fee           | string | null: false |
+| delivery source region | string | null: false |
+| preparetion_days       | string | null: false |
+| items_value            | integer| null: false |
+### Association
 
-* How to run the test suite
+- belongs_to :users
+- has_many :comments
+- has_one: shipping address
+- has_one: orders
+## comments テーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| text      | text       | null: false                    |
+| user_id   | references |                                |
+| items_id  | references |                                |
 
-* Deployment instructions
+### Association
+- belongs_to :users
+- belongs_to :items
 
-* ...
+
+## shipping address テーブル
+
+| Column                 | Type   | Options     |
+| ---------------------- | ------ | ----------- |
+| post_number            | integer| null: false |
+| prefectures            | string | null: false |都道府県
+| municipality           | string | null: false |市区町村
+| address                | string | null: false |番地
+| building_name          | string | null: false |
+| phone_number           | integer| null: false |
+
+### Association
+
+- belongs_to :items
+
+# orders テーブル
+
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| price     | integer    | null: false                    |
