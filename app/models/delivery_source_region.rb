@@ -1,0 +1,2 @@
+class DeliverySourceRegion < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class PreparetionDay < ApplicationRecord
+end
