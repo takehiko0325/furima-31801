@@ -18,14 +18,14 @@
 
 - has_many :items, through: :users_items
 - has_many :comments
-- belongs_to: users_items
+- has_many :users_items
 
 ## items テーブル
 
 | Column                 | Type   | Options     |
 | ---------------------- | ------ | ----------- |
 | items_name             | string | null: false |
-| items_explanation      | string | null: false |
+| items_explanation      | text   | null: false |
 | items_category         | string | null: false |
 | items_status           | string | null: false |
 | delivery fee           | string | null: false |
@@ -38,7 +38,7 @@
 
 - belongs_to :user
 - has_many :comments
-- has_one: shipping address
+
 ## comments テーブル
 
 | Column    | Type       | Options                        |
@@ -74,7 +74,7 @@
 | address                | string | foreign_key: true |
 | building_name          | string |                   |
 | phone_number           | string | foreign_key: true |  
-
+| shipping_address_id    | integer| null: false       |
 ### Association
 
 - belongs_to :item
