@@ -3,28 +3,28 @@
 
 ## users テーブル
 
-| Column          | Type   | Options     |
-| --------------- | ------ | ----------- |
-| name            | string | null: false |
-| email           | string | null: false |
-| password        | string | null: false |
-| first_name      | string | null: false |
-| family_name     | string | null: false |
-| first_name(カナ) | string | null: false |
-| family_name(カナ)| string | null: false |
-| birthday        | integer| null: false |
+| Column             | Type   | Options     |
+| ---------------    | ------ | ----------- |
+| name               | string | null: false |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| first_name         | string | null: false |
+| family_name        | string | null: false |
+| first_name(kana)   | string | null: false |
+| family_name(kana)  | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
-- has_many :items
+- has_many :items, through: :users_items
 - has_many :comments
+
 
 
 ## items テーブル
 
 | Column                 | Type   | Options     |
 | ---------------------- | ------ | ----------- |
-| image                  | text   | null: false |
 | items_name             | string | null: false |
 | items_explanation      | string | null: false |
 | items_category         | string | null: false |
@@ -35,7 +35,7 @@
 | items_value            | integer| null: false |
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - has_many :comments
 - has_one: shipping address
 - has_one: orders
@@ -48,24 +48,32 @@
 | items_id  | references |                                |
 
 ### Association
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
+
+## users_items テーブル
+
+| Column                 | Type   | Options     |
+| ---------------------- | ------ | ----------- |
+| item_id                | string |             |
+| user_id                | string |             |
+
 
 
 ## shipping address テーブル
 
 | Column                 | Type   | Options     |
 | ---------------------- | ------ | ----------- |
-| post_number            | integer| null: false |
-| prefectures            | string | null: false |都道府県
+| post_number            | string | null: false |
+| prefectures            | integer| null: false |都道府県
 | municipality           | string | null: false |市区町村
 | address                | string | null: false |番地
-| building_name          | string | null: false |
-| phone_number           | integer| null: false |
+| building_name          | string |             |
+| phone_number           | string | null: false |
 
 ### Association
 
-- belongs_to :items
+- belongs_to :item
 
 # orders テーブル
 
