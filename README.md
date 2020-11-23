@@ -16,23 +16,22 @@
 
 ### Association
 
-- has_many :items, through: :users_items
+- has_many :items, 
 - has_many :comments
 - has_many :users_items
 
 ## items テーブル
 
-| Column                 | Type   | Options     |
-| ---------------------- | ------ | ----------- |
-| items_name             | string | null: false |
-| items_explanation      | text   | null: false |
-| items_category         | string | null: false |
-| items_status           | string | null: false |
-| delivery fee           | string | null: false |
-| delivery source region | string | null: false |
-| preparetion_days       | string | null: false |
-| items_value            | integer| null: false |
-| items_id               | integer| null: false |
+| Column                   | Type   | Options     |
+| ----------------------   | ------ | ----------- |
+| items_name               | string | null: false |
+| items_explanation        | text   | null: false |
+| items_category_id        | integer| null: false |
+| items_status_id          | integer| null: false |
+| delivery fee_id          | integer| null: false |
+| delivery source region_id| integer| null: false |
+| preparetion_days_id      | integer| null: false |
+| user_id                  | integer| null: false |
 
 ### Association
 
@@ -66,15 +65,16 @@
 
 ## shipping_address テーブル
 
-| Column                 | Type   | Options           |
-| ---------------------- | ------ | -----------       |
-| post_number            | string | foreign_key: true |
-| prefectures            | integer| foreign_key: true |
-| municipality           | string | foreign_key: true |
-| address                | string | foreign_key: true |
-| building_name          | string |                   |
-| phone_number           | string | foreign_key: true |  
-| shipping_address_id    | integer| null: false       |
+| Column                 | Type       | Options           |
+| ---------------------- | ------     | -----------       |
+| post_number            | string     |                   |
+| prefectures_id         | integer    | foreign_key: true |
+| municipality           | string     | foreign_key: true |
+| address                | string     | foreign_key: true |
+| building_name          | string     |                   |
+| phone_number           | string     |                   |  
+| shipping_address_id    | integer    | null: false       |
+| users_items_id         | references | foreign_key: true | 
 ### Association
 
 - belongs_to :item
