@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :show,]
+  
   def index
-@items = Item.all
+       @items = Item.all
   end
 
   def new
@@ -8,7 +10,13 @@ class ItemsController < ApplicationController
   end
 
   def create
-    Items.create(item_params)
+    @item = Item.new(item_params)
+    @Items.create(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new
+    end   
   end
 
   private

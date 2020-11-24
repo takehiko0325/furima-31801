@@ -9,6 +9,8 @@ class Article < ApplicationRecord
   belongs_to :fee
   belongs_to :status
   
+  belongs_to :user
+  
   validates :name, :explanation, presence: true
 
   #ジャンルの選択が「--」の時は保存できないようにする
