@@ -1,7 +1,6 @@
 class Item < ApplicationRecord
   has_one_attached :image
-end
-class Article < ApplicationRecord
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :delivery_source_region
