@@ -9,20 +9,8 @@ RSpec.describe User, type: :model do
       it "name,email,password,first_name,family_name,first_name_kana,family_name_kana,birthdayが存在すれば登録できる" do
         expect(@user).to be_valid
       end
-      it "passwordが6文字以上であれば登録できる" do
-        @user.password = "000000"
-        @user.password_confirmation = "000000"
-      end
-      it 'passwordが半角英数混合(半角英語のみ)' do
-        @user.password = 'aaaaaaa'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      end
-
-
     end
-  
-      context '新規登録がうまくいかないとき' do
+    context '新規登録がうまくいかないとき' do
   
       it "nameが空だと登録できない" do
       @user.name = ""
@@ -34,6 +22,19 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
+      it "重複したemailが存在する場合登録できない" do
+      @user.save
+      another_user = FactoryBot.build(:user)
+      another_user.email = @user.email
+      another_user.valid?
+      expect(another_user.errors.full_messages).to include("Email has already been taken")
+      end
+     # it 'emailが@を含んだ形式でないと保存できないこと' do  
+      #"  @user.email = 'aaaaaa'
+      # " @user.valid?
+       # expect(@user.errors.full_messages).to include("Postal code is invalid. Include hyphen(@)")
+     # end
+  
     it "passwordが空では登録できない" do
       @user.password = ""
       @user.valid?
@@ -46,12 +47,34 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
 
+    it 'passwordが半角英数混合出なければ登録できない(半角英語のみ)' do
+      @user.password = 'aaaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password Include both letters and numbers.")
+    end
+
+    it 'passwordが一致しなければ登録できない)' do
+      @user.password = 'aaaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+
+    it 'passwordが６文字以上なければ登録できない)' do
+      @user.password = 'aaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+    end
  
       it "first_nameが空だと登録できない" do
         
         @user.first_name = ""  
         @user.valid?
         expect(@user.errors.full_messages).to include "First name can't be blank"
+      end
+      it 'first_nameが全角日本語でないと保存できない' do
+        @user.first_name = "ｽｽﾞｷ"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters.")
       end
   
       it "family_nameが空だと登録できない" do
@@ -60,6 +83,11 @@ RSpec.describe User, type: :model do
           @user.valid?
           expect(@user.errors.full_messages).to include "Family name can't be blank"
         end
+        it 'family_nameが全角日本語でないと保存できないこと' do
+          @user.family_name = "ｽｽﾞｷ"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+        end
 
       it "first_name_kanaが空だと登録できない" do
         
@@ -67,13 +95,25 @@ RSpec.describe User, type: :model do
           @user.valid?
           expect(@user.errors.full_messages).to include "First name kana can't be blank"
         end
-    
+        it 'family_nameが全角カナでないと保存できないこと' do
+          @user.family_name = "ｽｽﾞｷ"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+        end
+
       it "family_name_kanaが空だと登録できない" do
           
           @user.family_name_kana = ""  
           @user.valid?
           expect(@user.errors.full_messages).to include "Family name kana can't be blank"
          end
+
+         it 'family_nameが全角カナでないと保存できないこと' do
+          @user.family_name = "ｽｽﾞｷ"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+         end
+
       it "birthdayが空だと登録できない" do
           @user.birthday = ""  
           @user.valid?
@@ -83,4 +123,6 @@ RSpec.describe User, type: :model do
     end 
    end  
   end
+
+
 

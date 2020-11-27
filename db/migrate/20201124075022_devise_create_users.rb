@@ -4,10 +4,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
   def change
     create_table :users do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
+      t.string :email,              null: false, default: "",unique: true
       t.string :encrypted_password, null: false, default: ""
       PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)(?=.*?[\W_])[!-~]+\z/i.freeze
-      validates_format_of :password, with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください' 
+      validates_format_of :password, with: PASSWORD_REGEX
       t.string :name, null: false
       t.string :first_name, null: false
       t.string :family_name, null: false

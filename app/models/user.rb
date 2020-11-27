@@ -7,11 +7,11 @@ class User < ApplicationRecord
          
          
   has_many :items
-
-  validates :name, presence: true
-  validates :first_name, presence: true
-  validates :family_name, presence: true
-  validates :first_name_kana, presence: true
-  validates :family_name_kana, presence: true
-  validates :birthday, presence: true
+  with_options presence: true do
+    validates :first_name, :family_name,format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
+    validates :first_name_kana,:family_name_kana,format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid. Input full-width katakana characters."}
+    validates :name, :birthday
+    validates :password,format: { with: /\A[a-z0-9]+\z/i}
+    
+end
 end
