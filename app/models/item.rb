@@ -10,10 +10,10 @@ class Item < ApplicationRecord
   
   belongs_to :user
   
-  validates :name, :explanation, presence: true
+  validates :name, :explanation, :payment,   presence: true
 
   #ジャンルの選択が「--」の時は保存できないようにする
-  validates :category_id,                             numericality: { other_than: 1 } 
+  validates :category_id,:delivery_source_region_id, :preparetion_day,:fee_id,:status_id,      numericality: { other_than: 1 } 
 
 
 
