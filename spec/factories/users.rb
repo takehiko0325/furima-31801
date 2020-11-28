@@ -10,6 +10,6 @@ FactoryBot.define do
     birthday             {Faker::Date.in_date_period}
    # https://github.com/faker-ruby/faker#usage 
     password             {"00a22s"}
-    password_confirmation {password}
+    # password_confirmation {password}
   end
 end
