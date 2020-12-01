@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   
   def index
-       @items = Item.includes(:user)
+    @prototypes = Prototype.includes(:user)
   end
 
   def new
