@@ -9,7 +9,6 @@ RSpec.describe Item, type: :model do
   describe '商品出品' do
     context "商品の出品ができる場合" do
       it "すべての情報が登録できる" do
-        @item.name = "aaaaaa"
         expect(@item).to be_valid
       end
     
@@ -72,7 +71,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Payment must be greater than or equal to 300")
       end
       it '価格が100000000円以上だと出品できない' do
-        @item.payment = 100000001
+        @item.payment = 100000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Payment must be less than or equal to 99999999")
       end
