@@ -5,7 +5,7 @@ FactoryBot.define do
       item.image.attach(io: File.open('public/images/test_image.jpg'), filename: 'test_image.jpg')
   end
     explanation {Faker::Lorem.sentence}
-    payment {"100000"}
+    payment {100000}
     category_id {2}
     delivery_source_region_id {2}
     preparetion_day_id {2}

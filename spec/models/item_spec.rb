@@ -8,13 +8,8 @@ RSpec.describe Item, type: :model do
 
   describe '商品出品' do
     context "商品の出品ができる場合" do
-      it "商品名が40文字以下で登録できる" do
+      it "すべての情報が登録できる" do
         @item.name = "aaaaaa"
-        expect(@item).to be_valid
-      end
-
-      it "商品説明が1000文字以下で登録できる" do
-        @item.explanation = "aaaaaa"
         expect(@item).to be_valid
       end
     
@@ -71,11 +66,17 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Payment is not a number")
       end
-      it '価格が300~9999999円の範囲内でないと出品できない' do
-        @item.payment = '10'
+      it '価格が299円以下だと出品できない' do
+        @item.payment = 10
         @item.valid?
         expect(@item.errors.full_messages).to include("Payment must be greater than or equal to 300")
       end
+      it '価格が100000000円以上だと出品できない' do
+        @item.payment = 100000001
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Payment must be less than or equal to 99999999")
+      end
+    
     
     
 
