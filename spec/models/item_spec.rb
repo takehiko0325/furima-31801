@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @tweet = FactoryBot.build(:tweet)
+    @item = FactoryBot.build(:item)
+  
   end
 
   describe '商品出品' do
@@ -20,60 +21,60 @@ RSpec.describe Item, type: :model do
     end
     context "商品が出品できない場合" do
       it "画像がないと商品は保存できない" do
-        @item.imege = ""
+        @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end     
       it "商品名がないと商品は保存できない" do
-        @item.name = ""
+        @item.name = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
       
       it "商品の説明がないと商品は保存できない" do
-        @item.explanation = ""
+        @item.explanation = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end      
       it "カテゴリーが選択されないと商品は保存できない" do
-        @item.category = ""
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end 
       it "商品の状態が選択されないと商品は保存できない" do
-        @item.status = ""
+        @item.status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Status must be other than 1")
       end     
       it "配送料の負担が選択されないと商品は保存できない" do
-        @item.fee = ""
+        @item.fee_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Fee must be other than 1")
       end     
       it "発送までの日数が選択されないと商品は保存できない" do
-        @item.preparetion= ""
+        @item.preparetion_day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Preparetion day must be other than 1")
       end     
       it "発送元の地域が選択されないと商品は保存できない" do
-        @item.delivery_source_region = ""
+        @item.delivery_source_region_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery source region must be other than 1")
       end      
       it "価格がないと商品は保存できない" do
-        @item.payment  = ""
+        @item.payment  = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Payment can't be blank")
       end   
-      it '価格が半角数字でなければ登録できない(半角英語のみ)' do
-        @item.payment = 'aaaaa'
+      it '価格が半角数字でなければ登録できない(半角数字のみ)' do
+        @item.payment = "aaaaaa"
         @item.valid?
-        expect(@item.errors.full_messages).to include("Payment is invalid")
+        expect(@item.errors.full_messages).to include("Payment is not a number")
       end
       it '価格が300~9999999円の範囲内でないと出品できない' do
         @item.payment = '10'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Payment is out of setting range")
+        expect(@item.errors.full_messages).to include("Payment must be greater than or equal to 300")
       end
     
     
