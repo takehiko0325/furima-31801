@@ -66,7 +66,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Payment is not a number")
       end
       it '価格が299円以下だと出品できない' do
-        @item.payment = 10
+        @item.payment = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Payment must be greater than or equal to 300")
       end
