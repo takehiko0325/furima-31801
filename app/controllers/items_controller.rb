@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class ItemsController < ApplicationControlle
   before_action :set_item, only: [:edit, :show]
   before_action :authenticate_user! ,only: [:new]
   def index
