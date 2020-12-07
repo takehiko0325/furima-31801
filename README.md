@@ -56,7 +56,6 @@ has_one : users_item
 | ---------------------- | --------- | ------------------|
 | item                   |references | foreign_key: true |
 | user                   |references | foreign_key: true |
-
 ### Association
 - belongs_to :user
 - belongs_to :item
