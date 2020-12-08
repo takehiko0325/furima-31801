@@ -6,7 +6,7 @@ RSpec.describe UserSell, type: :model do
       @user_sell = FactoryBot.build(:user_sell)
     end
     context '商品購入がうまくいくとき' do
-      it "post_number,delivery_source_region_id,city, address,building_name,phone_numberが存在すれば登録できる" do
+      it "情報が存在すれば登録できる" do
         expect(@user_sell).to be_valid
       end
     end
@@ -16,6 +16,7 @@ RSpec.describe UserSell, type: :model do
         @user_sell.valid?
         expect(@user_sell.errors.full_messages).to include "Post number can't be blank"
       end
+      
       it '郵便番号が半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @user_sell.post_number = '1234567'
         @user_sell.valid?
@@ -39,10 +40,17 @@ RSpec.describe UserSell, type: :model do
         @user_sell.valid?
         expect(@user_sell.errors.full_messages).to include "Phone number can't be blank"
       end
+
       it "電話番号が半角数字以外だと登録できない" do
         @user_sell.phone_number = "aaaaaaaaa"
         @user_sell.valid?
         expect(@user_sell.errors.full_messages).to include "Phone number is invalid"
+      end
+
+      it "tokenが空では登録できないこと" do
+        @user_sell.token = nil
+        @user_sell.valid?
+        expect(@user_sell.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
