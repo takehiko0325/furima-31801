@@ -63,6 +63,19 @@ RSpec.describe UserSell, type: :model do
         expect(@user_sell.errors.full_messages).to include("Token can't be blank")
       end
 
+      it "user_idが空では登録できないこと" do
+ 
+        @user_sell.user_id = nil
+        @user_sell.valid?
+        expect(@user_sell.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "item_idが空では登録できないこと" do
+        @user_sell.item_id = nil
+        @user_sell.valid?
+        expect(@user_sell.errors.full_messages).to include("Item can't be blank")
+      end     
+      
       it "発送元の地域が選択されないと商品は保存できない" do
           @user_sell.delivery_source_region_id = 1
           @user_sell.valid?
