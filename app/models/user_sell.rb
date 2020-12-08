@@ -7,7 +7,7 @@ class UserSell
     with_options presence: true do
       validates :post_number, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
       validates :delivery_source_region_id, numericality: { other_than: 1 } 
-      validates :city, :address,:token
+      validates :city, :address,:token,:user_id,:item_id
       validates :phone_number,format:{with: /\A[0-9]+\z/}  ,length: { maximum: 11 }
     end
       

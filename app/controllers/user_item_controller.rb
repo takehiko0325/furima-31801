@@ -1,17 +1,22 @@
 class UserItemController < ApplicationController
   before_action :authenticate_user! 
+  before_action :params_find , only: [:index, :create ]
+
   def index
-    @user_sell   = UserSell.new
     @item = Item.find(params[:item_id])
+    if current_user == @item.user
+      redirect_to root_path
+    end
+    @user_sell   = UserSell.new
+    
   end
 
   def create
-    @item = Item.find(params[:item_id])
-    @user_sell   = UserSell.new(user_sell_params)
-    if @user_sell.valid?
-       pay_item
-       @user_sell.save
-       redirect_to root_path
+      @user_sell   = UserSell.new(user_sell_params)
+     if  @user_sell.valid?
+        pay_item
+        @user_sell.save
+        redirect_to root_path
     else   
      
       render :index
@@ -32,6 +37,11 @@ def pay_item
         currency: 'jpy'                 
       ) 
 end
+
+def params_find
+  @item = Item.find(params[:item_id])
+end
+
 end
 
 
