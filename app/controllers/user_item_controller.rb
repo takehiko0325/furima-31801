@@ -3,7 +3,6 @@ class UserItemController < ApplicationController
   before_action :params_find , only: [:index, :create ]
 
   def index
-    @item = Item.find(params[:item_id])
     if current_user == @item.user
       redirect_to root_path
     end
