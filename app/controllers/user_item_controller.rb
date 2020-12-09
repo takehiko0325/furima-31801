@@ -12,6 +12,7 @@ class UserItemController < ApplicationController
 
   def create
       @user_sell   = UserSell.new(user_sell_params)
+      
      if  @user_sell.valid?
         pay_item
         @user_sell.save
@@ -25,7 +26,7 @@ private
 
 def  user_sell_params
   params.require(:user_sell).permit(:post_number,:delivery_source_region_id,:city,:address, :building_name,:phone_number)
-  .merge(token: params[:token])
+  .merge(token: params[:token],user_id: current_user.id ,item_id: @item.id)
 end
 
 def pay_item
