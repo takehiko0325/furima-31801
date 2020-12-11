@@ -7,9 +7,9 @@ class Item < ApplicationRecord
   belongs_to :preparetion_day
   belongs_to :fee
   belongs_to :status
-  
   belongs_to :user  
   has_one :users_item
+  has_many :comments
 
   with_options presence: true do
     validates :payment, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 99999999, message: "は300~99999999円の範囲で設定して下さい"}   

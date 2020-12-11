@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   root to: 'items#index'
   resources :items do
     resources :user_item
+    resources :comments, only: :create
   end
 end
