@@ -9,12 +9,13 @@ class User < ApplicationRecord
   
     # PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)(?=.*?[\W_])[!-~]+\z/i.freeze
     PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d_-]+\z/i.freeze
-    validates_format_of :password, with: PASSWORD_REGEX ,message: "Password Include both letters and numbers."
+    validates_format_of :password, with: PASSWORD_REGEX ,message: "は半角英数混合で入力して下さい"
 
   with_options presence: true do
-    validates :first_name, :family_name,format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
-    validates :first_name_kana,:family_name_kana,format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid. Input full-width katakana characters."}
+    validates :first_name, :family_name,format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "は全角日本語で入力して下さい"}
+    validates :first_name_kana,:family_name_kana,format: { with: /\A[ァ-ヶー－]+\z/, message: "は全角カナで入力して下さい"}
     validates :name, :birthday
+
   end
     
 end
