@@ -15,6 +15,8 @@ class ItemsController < ApplicationController
 
 
   def  show
+    @comment = Comment.new
+    @comments = @item.comments.includes(:user)
     
   end
 
@@ -27,6 +29,7 @@ class ItemsController < ApplicationController
   end
 
   def create
+    @comment = Comment.new(text: params[:comment][:text])
     @item = Item.new(item_params)
     if @item.valid?
        @item.save
